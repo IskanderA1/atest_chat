@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flash_chat_attest/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+/// Инстанс FirebaseFirestore, позволяет получать колекцию
 final _firestore = FirebaseFirestore.instance;
+
+///
 User? loggedInUser;
 
+/// Экран Чата
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';
 
@@ -16,6 +20,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final messageTextController = TextEditingController();
+  // Получение инстанса авторизации
   final _auth = FirebaseAuth.instance;
 
   @override
@@ -25,6 +30,7 @@ class _ChatScreenState extends State<ChatScreen> {
     getCurrentUser();
   }
 
+  // Получение текущего пользователя
   void getCurrentUser() {
     try {
       final user = _auth.currentUser;
@@ -76,7 +82,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       decoration: kMessageTextFieldDecoration,
                     ),
                   ),
-                  FlatButton(
+                  MaterialButton(
                     onPressed: () {
                       if (messageTextController.text.isNotEmpty) {
                         _firestore.collection('messages').add({
@@ -101,6 +107,8 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 }
 
+/// Виджет области сообщений,
+/// читает изменения стрима колекции firestore
 class MessagesStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -142,6 +150,11 @@ class MessagesStream extends StatelessWidget {
   }
 }
 
+
+/// Виджет для сообщения
+/// [sender] - отправитель
+/// [text] - текст сообщения
+/// [isMe] - флажок будет тру, если сам пользователь отправитель
 class MessageBubble extends StatelessWidget {
   MessageBubble({required this.sender, required this.text, required this.isMe});
 

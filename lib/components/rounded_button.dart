@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+
+/// Виджет кнопки
+/// [title] - Текст кнопки
+/// [colour] - цвет фона кнопки
+/// [onPressed] - функция которая выполнится после нажатия
 class RoundedButton extends StatelessWidget {
   RoundedButton({
     required this.title,

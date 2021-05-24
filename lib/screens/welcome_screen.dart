@@ -4,6 +4,7 @@ import 'registration_screen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flash_chat_attest/components/rounded_button.dart';
 
+/// Стартовый экран
 class WelcomeScreen extends StatefulWidget {
   static const String id = 'welcome_screen';
 
@@ -55,6 +56,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     height: 60.0,
                   ),
                 ),
+                // ignore: deprecated_member_use
                 TypewriterAnimatedTextKit(
                   text: ['Flash Chat'],
                   textStyle: TextStyle(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+///
 const kSendButtonTextStyle = TextStyle(
   color: Colors.lightBlueAccent,
   fontWeight: FontWeight.bold,
@@ -12,12 +14,15 @@ const kMessageTextFieldDecoration = InputDecoration(
   border: InputBorder.none,
 );
 
+/// Рамки для
 const kMessageContainerDecoration = BoxDecoration(
   border: Border(
     top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
   ),
 );
 
+
+/// Стиль для TextField
 const kTextFieldDecoration = InputDecoration(
   hintText: 'Enter a value',
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),

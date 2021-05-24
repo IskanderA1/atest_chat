@@ -1,3 +1,4 @@
+import 'package:flash_chat_attest/components/chat_app_bar.dart';
 import 'package:flash_chat_attest/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat_attest/components/rounded_button.dart';
@@ -5,6 +6,8 @@ import 'package:flash_chat_attest/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'chat_screen.dart';
 
+/// Экран Регистрации, позволяет ввести логин и пороль,
+/// чтобы зарегистрироваться через  Firebase
 class RegistrationScreen extends StatefulWidget {
   static const String id = 'registration_screen';
 
@@ -22,6 +25,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: ChatAppBar(
+        onPressed: () => Navigator.pop(context),
+      ),
       body: Stack(
         children: [
           Padding(
