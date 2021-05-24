@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 
 
-///
+/// Стиль кнопки отправки сообщения
 const kSendButtonTextStyle = TextStyle(
   color: Colors.lightBlueAccent,
   fontWeight: FontWeight.bold,
   fontSize: 18.0,
 );
 
+/// Стиль TextField для ввода сообщения
 const kMessageTextFieldDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   hintText: 'Type your message here...',
   border: InputBorder.none,
 );
 
-/// Рамки для
+/// Рамки для контейнера ввода сообщений
 const kMessageContainerDecoration = BoxDecoration(
   border: Border(
     top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
@@ -22,7 +23,7 @@ const kMessageContainerDecoration = BoxDecoration(
 );
 
 
-/// Стиль для TextField
+/// Стандартный стиль для TextField ав
 const kTextFieldDecoration = InputDecoration(
   hintText: 'Enter a value',
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),

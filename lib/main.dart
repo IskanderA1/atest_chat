@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flash_chat_attest/screens/welcome_screen.dart';
-import 'package:flash_chat_attest/screens/login_screen.dart';
-import 'package:flash_chat_attest/screens/registration_screen.dart';
-import 'package:flash_chat_attest/screens/chat_screen.dart';
+import 'package:flash_chat_attest/screens/start_screen.dart';
+import 'package:flash_chat_attest/screens/auth_screen.dart';
+import 'package:flash_chat_attest/screens/registr_screen.dart';
+import 'package:flash_chat_attest/screens/general_chat_screen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,12 +15,12 @@ class FlashChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: WelcomeScreen.id,
+      initialRoute: StartScreen.id,
       routes: {
-        WelcomeScreen.id: (context) => WelcomeScreen(),
-        LoginScreen.id: (context) => LoginScreen(),
-        RegistrationScreen.id: (context) => RegistrationScreen(),
-        ChatScreen.id: (context) => ChatScreen(),
+        StartScreen.id: (context) => StartScreen(),
+        AuthScreen.id: (context) => AuthScreen(),
+        RegistrScreen.id: (context) => RegistrScreen(),
+        GeneralChatScreen.id: (context) => GeneralChatScreen(),
       },
     );
   }

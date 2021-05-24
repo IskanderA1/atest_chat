@@ -1,41 +1,41 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flash_chat_attest/screens/welcome_screen.dart';
+import 'package:flash_chat_attest/screens/start_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat_attest/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 /// Инстанс FirebaseFirestore, позволяет получать колекцию
-final _firestore = FirebaseFirestore.instance;
+final _firestoreInstance = FirebaseFirestore.instance;
 
-///
-User? loggedInUser;
+/// авторизованный пользователь
+User? authorizedUser;
 
 /// Экран Чата
-class ChatScreen extends StatefulWidget {
-  static const String id = 'chat_screen';
+class GeneralChatScreen extends StatefulWidget {
+  static const String id = 'general_chat_screen';
 
   @override
-  _ChatScreenState createState() => _ChatScreenState();
+  _GeneralChatScreenState createState() => _GeneralChatScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _GeneralChatScreenState extends State<GeneralChatScreen> {
   final messageTextController = TextEditingController();
-  // Получение инстанса авторизации
-  final _auth = FirebaseAuth.instance;
+  /// Инстанс авторизации
+  final _authInstance = FirebaseAuth.instance;
 
   @override
   void initState() {
     super.initState();
 
-    getCurrentUser();
+    getUser();
   }
 
-  // Получение текущего пользователя
-  void getCurrentUser() {
+  /// Получение текущего пользователя
+  void getUser() {
     try {
-      final user = _auth.currentUser;
+      final user = _authInstance.currentUser;
       if (user != null) {
-        loggedInUser = user;
+        authorizedUser = user;
       }
     } catch (e) {
       print(e);
@@ -49,17 +49,17 @@ class _ChatScreenState extends State<ChatScreen> {
         leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {
-              _auth.signOut();
+              _authInstance.signOut();
               Navigator.pushNamedAndRemoveUntil(
-                  context, WelcomeScreen.id, (route) => false);
+                  context, StartScreen.id, (route) => false);
             }),
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                _auth.signOut();
+                _authInstance.signOut();
                 Navigator.pushNamedAndRemoveUntil(
-                    context, WelcomeScreen.id, (route) => false);
+                    context, StartScreen.id, (route) => false);
               }),
         ],
         title: Text('⚡️Chat'),
@@ -85,9 +85,9 @@ class _ChatScreenState extends State<ChatScreen> {
                   MaterialButton(
                     onPressed: () {
                       if (messageTextController.text.isNotEmpty) {
-                        _firestore.collection('messages').add({
+                        _firestoreInstance.collection('messages').add({
                           'text': messageTextController.text,
-                          'sender': loggedInUser?.email,
+                          'sender': authorizedUser?.email,
                         });
                         messageTextController.clear();
                       }
@@ -113,7 +113,7 @@ class MessagesStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collection('messages').snapshots(),
+      stream: _firestoreInstance.collection('messages').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Center(
@@ -127,7 +127,7 @@ class MessagesStream extends StatelessWidget {
           final String messageText = data['text'] ?? '';
           final String messageSender = data['sender'] ?? '';
 
-          final currentUser = loggedInUser?.email;
+          final currentUser = authorizedUser?.email;
           if (messageText.isNotEmpty && messageSender.isNotEmpty) {
             final messageBubble = MessageBubble(
               sender: messageSender,
@@ -142,7 +142,7 @@ class MessagesStream extends StatelessWidget {
           child: ListView(
             reverse: true,
             padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-            children: messageBubbles.reversed.toList(),
+            children: messageBubbles,
           ),
         );
       },

@@ -1,23 +1,26 @@
 import 'package:flash_chat_attest/components/chat_app_bar.dart';
-import 'package:flash_chat_attest/screens/login_screen.dart';
+import 'package:flash_chat_attest/screens/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat_attest/components/rounded_button.dart';
 import 'package:flash_chat_attest/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'chat_screen.dart';
+import 'general_chat_screen.dart';
 
 /// Экран Регистрации, позволяет ввести логин и пороль,
 /// чтобы зарегистрироваться через  Firebase
-class RegistrationScreen extends StatefulWidget {
-  static const String id = 'registration_screen';
+class RegistrScreen extends StatefulWidget {
+  static const String id = 'registr_screen';
 
   @override
-  _RegistrationScreenState createState() => _RegistrationScreenState();
+  _RegistrScreenState createState() => _RegistrScreenState();
 }
 
-class _RegistrationScreenState extends State<RegistrationScreen> {
-  final _auth = FirebaseAuth.instance;
-  bool showSpinner = false;
+class _RegistrScreenState extends State<RegistrScreen> {
+  
+  /// Инстанс авторизации
+  final _authInstance = FirebaseAuth.instance;
+  
+  bool isLoading = false;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -77,22 +80,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     if (emailController.text.isNotEmpty &&
                         passwordController.text.isNotEmpty) {
                       setState(() {
-                        showSpinner = true;
+                        isLoading = true;
                       });
                       try {
-                        await _auth.createUserWithEmailAndPassword(
+                        await _authInstance.createUserWithEmailAndPassword(
                           email: emailController.text,
                           password: passwordController.text,
                         );
-                        Navigator.pushNamed(context, ChatScreen.id);
+                        Navigator.pushNamed(context, GeneralChatScreen.id);
 
                         setState(() {
-                          showSpinner = false;
+                          isLoading = false;
                         });
                       } catch (e) {
                         print(e);
                         setState(() {
-                          showSpinner = false;
+                          isLoading = false;
                         });
                         final snackBar = SnackBar(
                           content: Text('$e'),
@@ -110,13 +113,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   title: 'Log In',
                   colour: Colors.lightBlueAccent,
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, LoginScreen.id);
+                    Navigator.pushReplacementNamed(context, AuthScreen.id);
                   },
                 ),
               ],
             ),
           ),
-          if (showSpinner)
+          if (isLoading)
             Center(
               child: CircularProgressIndicator(),
             ),

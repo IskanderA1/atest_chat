@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'login_screen.dart';
-import 'registration_screen.dart';
+import 'auth_screen.dart';
+import 'registr_screen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flash_chat_attest/components/rounded_button.dart';
 
 /// Стартовый экран
-class WelcomeScreen extends StatefulWidget {
-  static const String id = 'welcome_screen';
+class StartScreen extends StatefulWidget {
+  static const String id = 'start_screen';
 
   @override
-  _WelcomeScreenState createState() => _WelcomeScreenState();
+  _StartScreenState createState() => _StartScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen>
+class _StartScreenState extends State<StartScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation animation;
@@ -73,14 +73,14 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               title: 'Log In',
               colour: Colors.lightBlueAccent,
               onPressed: () {
-                Navigator.pushNamed(context, LoginScreen.id);
+                Navigator.pushNamed(context, AuthScreen.id);
               },
             ),
             RoundedButton(
               title: 'Register',
               colour: Colors.blueAccent,
               onPressed: () {
-                Navigator.pushNamed(context, RegistrationScreen.id);
+                Navigator.pushNamed(context, RegistrScreen.id);
               },
             ),
           ],
